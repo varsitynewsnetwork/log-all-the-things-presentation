@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Brian Scaturro Presents - Log All The Things</title>
+
+        <meta name="description" content="An overview of Facebook's new programming language: Hack">
+        <meta name="author" content="Brian Scaturro">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- Title slide -->
+                <section>
+                    <h1>Log All The Things</h1>
+                    <h3>Keep Tabs On All Your Business</h3>
+                    <p>
+                        <small>By <a href="http://brianscaturro.com">Brian Scaturro</a> / <a href="https://twitter.com/scaturr">@scaturr</a></small>
+                    </p>
+                </section>
+
+                <!-- Intro -->
+                <section>
+                    <section>
+                        <p>
+                            So you have a shiny new server architecture? You have a bunch of new apps and services? All humming together in perfect harmony?
+                        </p>
+                    </section>
+
+                    <section>
+                        <p>
+                            Nothing can possibly go wrong.
+                        </p>
+                    </section>
+
+                    <section>
+                        <p>
+                            JK. Something will go wrong. You will want to capture that somehow.
+                        </p>
+                    </section>
+
+                    <section>
+                        <p>
+                            So log all the things!
+                        </p>
+
+                        <img src="img/logstash-architecture.png" alt="a typical logstash architecture" />
+                    </section>
+                </section>
+                
+                <!-- The Players -->
+                <section>
+                    <section>
+                        <h2>The Players</h2>
+                        <p>
+                            There are a few key pieces of technology at play. The shipper, broker, and indexer. Of course, we will also want some sort of user interface into this madness.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>The Broker: Logstah</h2>
+                        <p>
+                            Gathers, parses and sends logs off for indexing.
+                        </p>
+
+                        <p>
+                            <br><a target="_blank" href="http://www.elasticsearch.org/overview/logstash/">elasticsearch.org/overview/logstash/</a>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>The Indexer: Elasticsearch</h2>
+                        <p>
+                            Lucene powered document store.
+                        </p>
+                        <p>
+                            <br><a target="_blank" href="http://logstash.net/">logstash.net/</a>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>The Shipper: Logstash Forwarder</h2>
+                        <p>
+                            Ships logs off to the Logstash.
+                        </p>
+                        <p>
+                            <br><a href="https://github.com/elasticsearch/logstash-forwarder" target="_blank">elasticsearch/logstash-forwarder</a>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>UI: Kibana</h2>
+                        <p>
+                            Interface to search logs.
+                        </p>
+                        <p>
+                            <br><a href="http://www.elasticsearch.org/overview/kibana/" target="_blank">elasticsearch.org/overview/kibana/</a>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Bonus Cool: Ansible</h2>
+                        <p>
+                            Configuration management for making all the above as painless as possible to deploy.
+                        </p>
+                        <p>
+                            <br><a href="http://www.ansible.com/home">ansible.com/home</a>
+                        </p>
+                    </section>
+                </section>
+
+                <!-- Logstash and Elasticsearch -->
+                <section>
+
+                    <section>
+                        <h2>Elasticsearch and Logstash</h2>
+                        <p>
+                            The heroes of our story.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h3>Deploying Elasticsearch</h3>
+                        <p>
+                            Logstash without Elasticsearch is like me without pizza. It's unnatural.
+                        </p>
+                        <p>
+                            <br><a href="https://github.com/varsitynewsnetwork/ansible-centralized-logging/tree/master/roles/elasticsearch">The Playbook</a>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h3>Deploying Logstash</h3>
+                        <p>
+                            <br><a href="https://github.com/varsitynewsnetwork/ansible-centralized-logging/tree/master/roles/logstash">The Playbook</a>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h3>Configuring Logstash</h3>
+                        <p>
+                            Logstash can be configured to accept all kinds of inputs, and even filter that data before passing it along.
+                        </p>
+                        <p>
+                            <br><a href="https://github.com/varsitynewsnetwork/ansible-centralized-logging/tree/master/roles/logstash/files/conf.d">/files/conf.d</a>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h3>Checking Elasticsearch Health</h3>
+                        <p>
+                            Elasticsearch exposes a nice restful interface, so checking health is easy.
+                        </p>
+                        <p>
+                            <br><a href="https://github.com/varsitynewsnetwork/ansible-centralized-logging/tree/master/roles/logstash/files/conf.d">/files/conf.d</a>
+                        </p>
+
+                        <pre>
+                            <code data-trim contenteditable class="bash">
+$ curl localhost:9200/_cat/health
+                            </code>
+                        </pre>
+
+                        <pre>
+                            <code data-trim contenteditable class="bash">
+$ 1413915720 14:22:00 elasticsearch red 1 1 19 19 0 4 37
+                            </code>
+                        </pre>
+
+                        <p>
+                            Sad Logging Server :(
+                        </p>
+                        
+                    </section>
+
+                    <section>
+                        <h3>Looking At Indexes</h3>
+                        
+                        <pre>
+                            <code data-trim contenteditable class="bash">
+$ curl localhost:9200/_cat/indices
+                            </code>
+                        </pre>
+
+                        <p>
+                            We can use the above to checkout how big our indexes have grown.
+                        </p>
+
+                        <pre>
+                            <code data-trim="" contenteditable class="bash">
+yellow logstash-2014.10.16   5   1   92115607            0     28.1gb         28.1gb                                
+                            </code>
+                        </pre>
+
+                    </section>
+
+                    <section>
+                        <h3>Further Reading</h3>
+                        <ul>
+                            <li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/_exploring_your_cluster.html">Elasticsearch: Exploring Your Cluster</a></li>
+                            <li><a href="http://logstash.net/docs/1.4.2/">Logstash Docs</a></li>
+                        </ul>
+                    </section>
+
+                </section>
+                
+                <!-- Logstash Forwarder -->
+                <section>
+                    <section>
+                        <h2>Logstash Forwarder</h2>
+                        <blockquote>
+                            <p>
+    ♫ I'm a lumberjack and I'm ok! I sleep when idle, then I ship logs all day! I parse your logs, I eat the JVM agent for lunch! ♫
+                            </p>
+                        </blockquote>
+                        <p>
+                            <br><a href="https://github.com/elasticsearch/logstash-forwarder">https://github.com/elasticsearch/logstash-forwarder</a>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h3>Deploying Logstash Forwarder</h3>
+                        <p>
+                            <br><a href="https://github.com/varsitynewsnetwork/ansible-centralized-logging/tree/master/roles/logstashforwarder">The Playbook</a>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>Configuring Logstash Forwarder</h2>
+                        <p>
+                            The forwarder or shipper or "gets logs to server"-er is in charge of getting logs to the server. Each service/app you want to send logs from needs this installed.
+                        </p>
+                    </section>
+
+                    <section>
+                        <p>
+                            Configuration can be handled via a simple <a href="https://github.com/varsitynewsnetwork/ansible-centralized-logging/blob/master/roles/logstashforwarder/files/logstash-forwarder.json">json file</a>.
+                        </p>
+                    </section>
+                </section>
+
+                <!-- Kibana -->
+                <section>
+                    <section>
+                        <h2>Kibana</h2>
+                        <p>
+                            Kibana is our view into our logs. It gives us a nice HTML UI for searching and viewing logs.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h3>Deploying Kibana</h3>
+                        <p>
+                            <br><a href="https://github.com/varsitynewsnetwork/ansible-centralized-logging/tree/master/roles/kibana">The Playbook</a>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h3>Dashboards</h3>
+                        <p>
+                            Kibana supports several dashboards out of the box, but there is one built for logstash stored at app/dashboards/
+                        </p>
+
+                        <p>
+                            Just rename it to <a href="https://github.com/varsitynewsnetwork/ansible-centralized-logging/blob/master/roles/kibana/files/kibana3/app/dashboards/default.json">default.json</a>
+                        </p>
+                    </section>
+                </section>
+
+                    
+
+                   
+                <!-- Ansible -->
+                <section>
+
+                    <h2>Ansible</h2>
+
+                    <p>
+                        Just a shout out to ansible. It is a handy tool in your dev-ops toolbelt.
+                    </p>
+
+                    <p>
+                        Check it out <a href="http://www.ansible.com/home">here</a>
+                    </p>
+
+                    <p>
+                        We released a configuration for spinning up your own centralized logging system on CentOS 6.5+ <a href="https://github.com/varsitynewsnetwork/ansible-centralized-logging">here</a>.
+                    </p>
+
+                </section>
+
+
+              <section>
+                  <h2>Questions?</h2>
+              </section>
+            </div>
+
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Parallax scrolling
+                // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+                // parallaxBackgroundSize: '2100px 900px',
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
